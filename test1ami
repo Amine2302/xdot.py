@@ -1,0 +1,19 @@
+digraph G {
+    node [shape=box];
+    edge [length=150, color=gray, fontcolor=black];
+
+    LDW [label="LDW (Local Data Warehouse)", shape=cylinder];
+    SwissQuantApp [label="SwissQuant Application Server"];
+    DataServer [label="Data Server"];
+    ZembraApp [label="Zembra Application", shape=box, style=rounded];
+    MorningStar [label="Morning Star (Data Provider)", shape=ellipse, style=dashed];
+    ODDOBHF [label="ODDO BHF (Positions Data)", shape=box, style=dotted];
+
+    LDW -> SwissQuantApp [label=" Nightly Batch: Holdings Data Transmission"];
+    SwissQuantApp -> DataServer [label=" Process Calculation Results"];
+    DataServer -> LDW [label=" Store Calculated Results"];
+    LDW -> ZembraApp [label=" Data for Visualization"];
+    MorningStar -> SwissQuantApp [label=" Benchmark Data"];
+    ODDOBHF -> SwissQuantApp [label=" Sends Holdings Data"];
+    SwissQuantApp -> ZembraApp [label=" Initiates Calculation", style=dotted];
+}
